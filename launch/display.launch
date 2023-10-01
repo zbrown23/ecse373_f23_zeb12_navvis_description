@@ -6,6 +6,8 @@
     <arg name="rviz_config_file" default="$(find navvis_description)/config/config.rviz"/>
 
     <arg name="use_joint_state_publisher_gui" default="true"/>
+
+    <arg name="use_robot_state_publisher" default="true"/>
     
     <!-- The filename can be passed into the launch file to override the default. -->
     <arg if="$(arg use_xacro)" name="filename" default="robot.xacro"/>
@@ -21,11 +23,11 @@
     <!-- Use the joint state publisher gui if the user specifies you should. -->
     <node if="$(arg use_joint_state_publisher_gui)" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" name="joint_state_publisher_gui"/>
     <!-- Otherwise, publish some transformations to use instead. -->
-    <node unless="$(arg use_joint_state_publisher_gui)" pkg="tf2_ros" type="static_transform_publisher" name="base_wheel_left_joint" args="0.0 0.365 0.2 0.0 0.0 -1.57 base wheel_left"/>
-    <node unless="$(arg use_joint_state_publisher_gui)" pkg="tf2_ros" type="static_transform_publisher" name="base_wheel_right_joint" args="0.0 -0.365 0.2 0.0 0.0 -1.57 base wheel_right"/>
-    <node unless="$(arg use_joint_state_publisher_gui)" pkg="tf2_ros" type="static_transform_publisher" name="base_wheel_center_joint" args="0.1 0.0 0.15 0.0 0.0 -1.57 base wheel_center"/>
+    <node unless="$(eval arg('use_joint_state_publisher_gui') || arg('use_robot_state_publisher')" pkg="tf2_ros" type="static_transform_publisher" name="base_wheel_left_joint" args="0.0 0.365 0.2 0.0 0.0 -1.57 base wheel_left"/>
+    <node unless="$(eval arg('use_joint_state_publisher_gui') || arg('use_robot_state_publisher')" pkg="tf2_ros" type="static_transform_publisher" name="base_wheel_right_joint" args="0.0 -0.365 0.2 0.0 0.0 -1.57 base wheel_right"/>
+    <node unless="$(eval arg('use_joint_state_publisher_gui') || arg('use_robot_state_publisher')" pkg="tf2_ros" type="static_transform_publisher" name="base_wheel_center_joint" args="0.1 0.0 0.15 0.0 0.0 -1.57 base wheel_center"/>
     <!-- Run the robot_state_publisher. -->
-    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" />
+    <node if="$(arg use_robot_state_publisher)" pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" />
 
     <!-- Run RVIZ with a configuration file. If RVIZ is closed, close everything. -->
     <node pkg="rviz" type="rviz" name="rviz" args="-d $(arg rviz_config_file)" required="true"/>
