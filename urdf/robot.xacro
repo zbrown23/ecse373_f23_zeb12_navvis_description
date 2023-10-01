@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
+<robot xmlns:xacro = "http://www.ros.org/wiki/xacro" name="navvis">
 <!-- Include the XACRO file that defines a Hokuyo LIDAR. -->
 <xacro:include filename="$(find gazebo_plugins)/test/multi_robot_scenario/xacro/laser/hokuyo.xacro" />
 <!-- Include the XACRO file that defines a Velodyne VLP-16. -->
 <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro"/>
-<robot xmlns:xacro = "http://www.ros.org/wiki/xacro" name="navvis">
     <link name="base">
         <visual>
             <origin xyz="0.0 0.0 0.96" rpy="0.0 0.0 0.0"/>
