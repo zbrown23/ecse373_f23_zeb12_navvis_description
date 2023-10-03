@@ -36,7 +36,7 @@
 
     <xacro:laser name="laser_vert_top_right" parent="base" xyz="0.2978 -0.1450 1.8451" rpy="-1.1760 0.6313 -1.9377" meshes="package://gazebo_plugins/test/multi_robot_scenario/meshes/laser"/>
     
-    <xacro:laser name="laser_vert_top_left" parent="base" xyz="0.2997 0.1531 0.18451" rpy="1.1780 0.6198 1.9560" meshes="package://gazebo_plugins/test/multi_robot_scenario/meshes/laser"/>
+    <xacro:laser name="laser_vert_top_left" parent="base" xyz="0.2997 0.1531 1.8451" rpy="1.1780 0.6198 1.9560" meshes="package://gazebo_plugins/test/multi_robot_scenario/meshes/laser"/>
 
     <xacro:VLP-16 parent="base" name="laser_horiz" topic="laser_horiz/packets" hz="10" samples="440" gpu="false">
         <origin xyz="0.2325416305773505 -0.0001380069427607134 1.920122926231907" rpy="-0.0012068 0.114646 -0.0015308" />
@@ -57,7 +57,7 @@
                 </geometry>
             </collision>
         </link>
-        <joint name="base_wheel_${side}" type="continuous">
+        <joint name="base_wheel_${side}_joint" type="continuous">
             <parent link="base"/>
             <child link="wheel_${side}"/>
             <origin xyz="-0.10 ${reflect * 0.4} 0.0" rpy="-1.57079632679 0.0 0.0"/>
@@ -83,7 +83,7 @@
         </collision>
     </link>
 
-    <joint name="base_wheel_center" type="continuous">
+    <joint name="base_wheel_center_joint" type="continuous">
         <parent link="base"/>
         <child link="wheel_center"/>
         <origin xyz="0.10 0.15 0.0" rpy="-1.57079632679 0.0 0.0"/>
